@@ -32,24 +32,25 @@ function App() {
       <div className={"grid grid-flow-row bg-" + history[1] + "600"}>
         {date}
       </div>
-      {buttonArray.map((item: number) => {
-        return (
-          <div key={"button-" + { item }}>
-            <h1 className={"bg-" + history[item] + "600" + " text-sm"}>
-              {item}
-            </h1>
-            <button
-              className="bg-gray-200 border-2 border-gray-500 rounded-full w-1/3 h-1/3"
-              onClick={() => {
-                console.log(history)
-                let newHistory = history
-                newHistory[item] = "green"
-                setHistory(history)
-              }}
-            ></button>
-          </div>
-        )
-      })}
+      <div className="grid grid-cols-3 gap-3 items-center">
+        {buttonArray.map((item: number) => {
+          return (
+            <div key={"button-" + { item }}>
+              <button
+                className="bg-gray-200 border-2 border-orange-300 rounded-full"
+                onClick={() => {
+                  console.log(history)
+                  let newHistory = history
+                  newHistory[item] = "green"
+                  setHistory(history)
+                }}
+              >
+                {item}
+              </button>
+            </div>
+          )
+        })}
+      </div>
     </>
   )
 }
