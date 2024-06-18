@@ -22,27 +22,33 @@ function App() {
     }
     setButtonArray(newArray)
   }
+  let changeColor = (item: number) => {
+    console.log(history)
+    let newHistory = history
+    newHistory[item] = "bg-green-200"
+    setHistory(newHistory)
+  }
 
   useEffect(() => {
     renderButtons(dayCount)
-  }, [date])
+    console.log(buttonArray)
+  }, [date, history])
 
   return (
     <>
-      <div className={"grid grid-flow-row bg-" + history[1] + "600"}>
-        {date}
-      </div>
+      <div className={"grid grid-flow-row " + history[1]}>{date}</div>
       <div className="grid grid-cols-3 gap-3 items-center">
         {buttonArray.map((item: number) => {
+          // console.log(item, "Item from first array")
           return (
-            <div key={"button-" + { item }}>
+            <div key={"button-" + item}>
               <button
-                className="bg-gray-200 border-2 border-orange-300 rounded-full"
+                className={
+                  history[item]
+                  // history[1] + "border-2 border-orange-300 rounded-full"
+                }
                 onClick={() => {
-                  console.log(history)
-                  let newHistory = history
-                  newHistory[item] = "green"
-                  setHistory(history)
+                  changeColor(item)
                 }}
               >
                 {item}
