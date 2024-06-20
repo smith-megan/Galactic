@@ -5,26 +5,25 @@ import "./App.css"
 function App() {
   interface HistoryStructure {
     [index: number]: string
+    // month: Array<number>
   }
 
   const [history, setHistory] = useState<HistoryStructure>(
     {} as HistoryStructure
   )
 
-  const [buttonArray, setButtonArray] = useState([0])
   let date = format(new Date(2014, 6, 11), "MMM/dd/yyyy")
   let dayCount = getDaysInMonth(date)
 
   let renderButtons = (dayCount: number) => {
-    let newArray = []
+    let newHistory = { ...history }
     for (let i = 1; i < dayCount + 1; i++) {
-      newArray.push(i)
+      newHistory[i] = "bg-gray-200"
     }
-    setButtonArray(newArray)
+    setHistory(newHistory)
   }
 
   let changeColor = (item: number) => {
-    console.log(history, "in changecolor button")
     let newHistory = { ...history }
     newHistory[item] = "bg-green-200"
     setHistory(newHistory)
@@ -32,25 +31,18 @@ function App() {
 
   useEffect(() => {
     renderButtons(dayCount)
-    console.log(buttonArray, "fix the buttons")
-  }, [date, history])
-
-  useEffect(() => {
-    console.log("It do!")
-    console.log(buttonArray)
-  })
+  }, [date])
 
   return (
     <>
       <div className={"grid grid-flow-row " + history[1]}>{date}</div>
-      <div className="grid grid-cols-3 gap-3 items-center">
-        {buttonArray.map((item: number) => {
+      <div className="grid grid-cols-4 gap-3 items-center">
+        {Object.keys(history).map((item: any) => {
           return (
             <div key={"button-" + item}>
               <button
                 className={
-                  history[item]
-                  // history[1] + "border-2 border-orange-300 rounded-full"
+                  history[item] + " border-2 border-orange-300 rounded-full"
                 }
                 onClick={() => {
                   changeColor(item)
