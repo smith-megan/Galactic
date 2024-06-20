@@ -22,24 +22,29 @@ function App() {
     }
     setButtonArray(newArray)
   }
+
   let changeColor = (item: number) => {
-    console.log(history)
-    let newHistory = history
+    console.log(history, "in changecolor button")
+    let newHistory = { ...history }
     newHistory[item] = "bg-green-200"
     setHistory(newHistory)
   }
 
   useEffect(() => {
     renderButtons(dayCount)
-    console.log(buttonArray)
+    console.log(buttonArray, "fix the buttons")
   }, [date, history])
+
+  useEffect(() => {
+    console.log("It do!")
+    console.log(buttonArray)
+  })
 
   return (
     <>
       <div className={"grid grid-flow-row " + history[1]}>{date}</div>
       <div className="grid grid-cols-3 gap-3 items-center">
         {buttonArray.map((item: number) => {
-          // console.log(item, "Item from first array")
           return (
             <div key={"button-" + item}>
               <button
