@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react"
 import { format, getDaysInMonth } from "date-fns"
+import soundList from "./assets/sounds/sounds"
 import "./App.css"
 
 function App() {
   interface HistoryStructure {
+    // "start": Date
     [index: number]: string
     // month: Array<number>
   }
@@ -12,7 +14,7 @@ function App() {
     {} as HistoryStructure
   )
 
-  let date = format(new Date(2014, 6, 11), "MMM/dd/yyyy")
+  let date = format(new Date(), "MMM/dd/yyyy")
   let dayCount = getDaysInMonth(date)
 
   let renderButtons = (dayCount: number) => {
@@ -33,6 +35,13 @@ function App() {
     renderButtons(dayCount)
   }, [date])
 
+  const playSound = () => {
+    // let chosenSound = soundList[1]
+    let chosenSound = soundList[Math.floor(Math.random() * soundList.length)]
+    new Audio(chosenSound).play()
+    console.log(chosenSound)
+  }
+
   return (
     <>
       <div className={"grid grid-flow-row " + history[1]}>{date}</div>
@@ -46,6 +55,7 @@ function App() {
                 }
                 onClick={() => {
                   changeColor(item)
+                  playSound()
                 }}
               >
                 {item}
