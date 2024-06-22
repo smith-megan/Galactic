@@ -20,14 +20,14 @@ function App() {
   let renderButtons = (dayCount: number) => {
     let newHistory = { ...history }
     for (let i = 1; i < dayCount + 1; i++) {
-      newHistory[i] = "bg-gray-200"
+      newHistory[i] = "from-gray-400 via-60% to-gray-500"
     }
     setHistory(newHistory)
   }
 
   let changeColor = (item: number) => {
     let newHistory = { ...history }
-    newHistory[item] = "bg-green-200"
+    newHistory[item] = "from-gray-300 via-40% to-gray-100"
     setHistory(newHistory)
   }
 
@@ -44,14 +44,20 @@ function App() {
 
   return (
     <>
-      <div className={"grid grid-flow-row " + history[1]}>{date}</div>
-      <div className="grid grid-cols-4 gap-3 items-center">
+      <div
+        className={"grid grid-flow-row font-semibold text-lg p-3 text-gray-200"}
+      >
+        {date}
+      </div>
+      <div className="grid grid-cols-4 gap-3">
         {Object.keys(history).map((item: any) => {
           return (
             <div key={"button-" + item}>
               <button
                 className={
-                  history[item] + " border-2 border-orange-300 rounded-full"
+                  "bg-gradient-to-t " +
+                  history[item] +
+                  " border-2 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
                 }
                 onClick={() => {
                   changeColor(item)
