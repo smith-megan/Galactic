@@ -5,7 +5,6 @@ import "./App.css"
 
 function App() {
   interface HistoryStructure {
-    // "start": Date
     [index: number]: string
     // month: Array<number>
   }
@@ -27,7 +26,11 @@ function App() {
 
   let changeColor = (item: number) => {
     let newHistory = { ...history }
-    newHistory[item] = "from-gray-300 via-40% to-gray-100"
+    if (newHistory[item] === "from-gray-400 via-60% to-gray-500") {
+      newHistory[item] = "from-gray-300 via-40% to-gray-100"
+    } else {
+      newHistory[item] = "from-gray-400 via-60% to-gray-500"
+    }
     setHistory(newHistory)
   }
 
@@ -36,7 +39,6 @@ function App() {
   }, [date])
 
   const playSound = () => {
-    // let chosenSound = soundList[1]
     let chosenSound = soundList[Math.floor(Math.random() * soundList.length)]
     new Audio(chosenSound).play()
     console.log(chosenSound)
@@ -45,19 +47,21 @@ function App() {
   return (
     <>
       <div
-        className={"grid grid-flow-row font-semibold text-lg p-3 text-gray-200"}
+        className={
+          "grid grid-flow-row font-semibold text-lg p-10 text-orange-200"
+        }
       >
         {date}
       </div>
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-5 gap-7">
         {Object.keys(history).map((item: any) => {
           return (
             <div key={"button-" + item}>
               <button
                 className={
-                  "bg-gradient-to-t " +
+                  "bg-gradient-to-tl " +
                   history[item] +
-                  " border-2 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
+                  " border-2 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
                 }
                 onClick={() => {
                   changeColor(item)
