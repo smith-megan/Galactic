@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { format, getDaysInMonth } from "date-fns"
 import soundList from "./assets/sounds/sounds"
 import "./App.css"
+import DownloadJSON from "./Components/download"
 
 function App() {
   interface HistoryStructure {
@@ -41,7 +42,6 @@ function App() {
   const playSound = () => {
     let chosenSound = soundList[Math.floor(Math.random() * soundList.length)]
     new Audio(chosenSound).play()
-    console.log(chosenSound)
   }
 
   return (
@@ -66,6 +66,7 @@ function App() {
                 onClick={() => {
                   changeColor(item)
                   playSound()
+                  DownloadJSON(history, date)
                 }}
               >
                 {item}
