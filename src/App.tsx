@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { format, getDaysInMonth } from "date-fns"
 import soundList from "./assets/sounds/sounds"
 import "./App.css"
-import DownloadJSON from "./Components/download.tsx"
+import DownloadJSON from "./Components/Download.tsx"
 
 function App() {
   interface HistoryStructure {
@@ -47,12 +47,28 @@ function App() {
   return (
     <>
       <div className="grid justify-self-center bg-burgundy rounded-lg p-10 mt-11 w-3/4">
-        <div
-          className={
-            "grid grid-flow-row font-semibold text-4xl p-10 text-orange-200 font-header"
-          }
-        >
-          {date}
+        <div>
+          <h1
+            className={
+              "grid grid-flow-row font-semibold text-6xl p-5 text-orange-200 font-header"
+            }
+          >
+            Tic
+          </h1>
+
+          <h1
+            className={
+              "grid grid-flow-row font-semibold text-4xl pb-5 text-orange-200 font-header"
+            }
+          >
+            {date}
+          </h1>
+          <p className="text-orange-200 p-5">
+            lorem ipsum Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
+          </p>
         </div>
         <div className="grid grid-cols-7 gap-7">
           {Object.keys(history).map((item: any) => {
