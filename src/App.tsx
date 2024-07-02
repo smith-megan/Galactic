@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { format, getDaysInMonth } from "date-fns"
 import soundList from "./assets/sounds/sounds"
 import "./App.css"
-import DownloadJSON from "./Components/Download.tsx"
+import axios from "axios"
 
 function App() {
   interface HistoryStructure {
@@ -16,6 +16,14 @@ function App() {
 
   let date = format(new Date(), "MMM/dd/yyyy")
   let dayCount = getDaysInMonth(date)
+
+  const getData = () => {
+    axios.get(`./api/data`).then((res) => {
+      console.log(res.data, "response data")
+      // setHistory(res.data)
+      // console.log(history)
+    })
+  }
 
   let renderButtons = (dayCount: number) => {
     let newHistory = { ...history }
@@ -36,6 +44,7 @@ function App() {
   }
 
   useEffect(() => {
+    getData()
     renderButtons(dayCount)
   }, [date])
 
@@ -50,18 +59,10 @@ function App() {
         <div>
           <h1
             className={
-              "grid grid-flow-row font-semibold text-6xl p-5 text-orange-200 font-header"
-            }
-          >
-            Tic
-          </h1>
-
-          <h1
-            className={
               "grid grid-flow-row font-semibold text-4xl pb-5 text-orange-200 font-header"
             }
           >
-            {date}
+            Tic - {date}
           </h1>
           <p className="text-orange-200 p-5">
             lorem ipsum Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -83,7 +84,7 @@ function App() {
                   onClick={() => {
                     changeColor(item)
                     playSound()
-                    DownloadJSON(history, date)
+                    // DownloadJSON(history, date) - add axios handling here
                   }}
                 >
                   {item}
