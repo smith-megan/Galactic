@@ -1,9 +1,22 @@
 import express from "express"
 import ViteExpress from "vite-express"
 
+// temporary data storage until db set up
+
+let history = { test: 4 }
+
 const app = express()
 
+app.use(express.json())
+
 app.get("/message", (_, res) => res.send("Hello from express!"))
-app.get("/api/data", (_, res) => res.send("string"))
+
+app.get("/api/data", (_, res) => res.send(history))
+
+app.post("/api/send", async (req, res) => {
+  console.log(req.body)
+  history = req.body.historyPackage
+  res.send("success")
+})
 
 ViteExpress.listen(app, 3000, () => console.log("Server is listening..."))

@@ -1,55 +1,39 @@
-import { useState, useEffect } from "react"
-import { format, getDaysInMonth } from "date-fns"
+import { useState } from "react"
+import { format } from "date-fns"
 import soundList from "./assets/sounds/sounds"
 import "./App.css"
 import axios from "axios"
 
 function App() {
   interface HistoryStructure {
-    [index: number]: string
+    date: string
+    name: string
+    description: string
+    length: number
+    // length: { [index: number]: string }
     // month: Array<number>
   }
 
-  const [history, setHistory] = useState<HistoryStructure>(
-    {} as HistoryStructure
-  )
+  const todayDate = format(new Date(), "MMM/dd/yyyy")
 
-  let date = format(new Date(), "MMM/dd/yyyy")
-  let dayCount = getDaysInMonth(date)
+  const [history, setHistory] = useState<HistoryStructure>({
+    date: todayDate,
+    name: "Journal",
+    description: "5 min or one page of writing by hand",
+    length: 0,
+  } as HistoryStructure)
 
-  const getData = () => {
-    axios.get(`./api/data`).then((res) => {
+  const postData = (historyPackage: object) => {
+    console.log(historyPackage, "from post function")
+    axios.post(`./api/send`, { historyPackage }).then((res) => {
+      console.log(historyPackage)
       console.log(res.data, "response data")
-      // setHistory(res.data)
-      // console.log(history)
+      // move to next screen on success
     })
   }
 
-  let renderButtons = (dayCount: number) => {
-    let newHistory = { ...history }
-    for (let i = 1; i < dayCount + 1; i++) {
-      newHistory[i] = "from-gray-400 via-60% to-gray-500"
-    }
-    setHistory(newHistory)
-  }
-
-  let changeColor = (item: number) => {
-    let newHistory = { ...history }
-    if (newHistory[item] === "from-gray-400 via-60% to-gray-500") {
-      newHistory[item] = "from-gray-300 via-40% to-gray-100"
-    } else {
-      newHistory[item] = "from-gray-400 via-60% to-gray-500"
-    }
-    setHistory(newHistory)
-  }
-
-  useEffect(() => {
-    getData()
-    renderButtons(dayCount)
-  }, [date])
-
   const playSound = () => {
-    let chosenSound = soundList[Math.floor(Math.random() * soundList.length)]
+    const chosenSound = soundList[Math.floor(Math.random() * soundList.length)]
     new Audio(chosenSound).play()
   }
 
@@ -62,37 +46,67 @@ function App() {
               "grid grid-flow-row font-semibold text-4xl pb-5 text-orange-200 font-header"
             }
           >
-            Tic - {date}
+            Tic - {todayDate}
           </h1>
-          <p className="text-orange-200 p-5">
-            lorem ipsum Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat.
-          </p>
+          <p className="text-orange-200 p-5"></p>
         </div>
-        <div className="grid grid-cols-7 gap-7">
-          {Object.keys(history).map((item: any) => {
-            return (
-              <div key={"button-" + item}>
-                <button
-                  className={
-                    "bg-gradient-to-tl " +
-                    history[item] +
-                    " border-2 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
-                  }
-                  onClick={() => {
-                    changeColor(item)
-                    playSound()
-                    // DownloadJSON(history, date) - add axios handling here
-                  }}
-                >
-                  {item}
-                </button>
-              </div>
-            )
-          })}
-        </div>
+        <form className="grid gap-5 text-orange-200">
+          <label>
+            Name your Goal:
+            <input
+              type="text"
+              value={history.name}
+              onChange={(e) => {
+                const newHistory = { ...history }
+                newHistory.name = e.target.value
+                setHistory(newHistory)
+              }}
+            />
+          </label>
+          <label>
+            Specify Success:
+            <input
+              type="text"
+              value={history.description}
+              onChange={(e) => {
+                const newHistory = { ...history }
+                newHistory.description = e.target.value
+                setHistory(newHistory)
+              }}
+            />
+          </label>
+          <label>
+            Set Length:
+            <input
+              type="number"
+              min="1"
+              max="365"
+              // value={history.length}
+              onChange={(e) => {
+                const newHistory = { ...history }
+                newHistory.length = parseInt(e.target.value)
+                setHistory(newHistory)
+              }}
+            />
+          </label>
+          <div>
+            <button
+              className={
+                "bg-gradient-to-tl " +
+                // history[item] +
+                " border-2 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
+              }
+              onClick={(e) => {
+                e.preventDefault()
+                // changeColor(item)
+                playSound()
+                console.log(history, "submit history")
+                postData(history)
+              }}
+            ></button>
+            <h1>Start</h1>
+          </div>
+        </form>
       </div>
     </>
   )
