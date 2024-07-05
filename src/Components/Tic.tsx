@@ -14,40 +14,43 @@ function Tic() {
     await axios.get(`./api/data`).then((res) => {
       console.log(res.data, "response data")
       setHistory(res.data)
+      renderButtons(res.data)
+    })
+  }
+
+  const updateData = (updatedObj: HistoryStructure) => {
+    axios.post(`./api/send`, { updatedObj }).then((res) => {
+      console.log(res.data, "response data")
     })
   }
 
   let todayDate = format(new Date(), "MMM/dd/yyyy")
   let dayCount = getDaysInMonth(todayDate)
 
-  let renderButtons = () => {
-    const newHistory = { ...history }
+  let renderButtons = (historyData: HistoryStructure) => {
     const newTrackedArray = []
+    console.log(historyData.length, "renderbuttons new history")
 
-    console.log(history, "renderbuttons new history")
-    for (let i = 1; i < newHistory.length + 1; i++) {
+    for (let i = 1; i < historyData.length + 1; i++) {
       newTrackedArray.push("from-gray-400 via-60% to-gray-500")
-      console.log(newTrackedArray)
     }
-    newHistory.tracked = newTrackedArray
-    console.log(newTrackedArray)
-    setHistory(newHistory)
-    console.log(history, "Buttons rendered")
+
+    historyData.tracked = newTrackedArray
+    setHistory(historyData)
   }
 
-  // let changeColor = (item: number) => {
-  //   let newHistory = { ...history }
-  //   if (newHistory[item] === "from-gray-400 via-60% to-gray-500") {
-  //     newHistory[item] = "from-gray-300 via-40% to-gray-100"
-  //   } else {
-  //     newHistory[item] = "from-gray-400 via-60% to-gray-500"
-  //   }
-  //   setHistory(newHistory)
-  // }
+  let changeColor = (item: number) => {
+    let newHistory = { ...history }
+    if (newHistory.tracked[item] === "from-gray-400 via-60% to-gray-500") {
+      newHistory.tracked[item] = "from-gray-300 via-40% to-gray-100"
+    } else {
+      newHistory.tracked[item] = "from-gray-400 via-60% to-gray-500"
+    }
+    setHistory(newHistory)
+  }
 
   useEffect(() => {
     getData()
-    renderButtons()
   }, [todayDate])
 
   const playSound = () => {
@@ -83,12 +86,12 @@ function Tic() {
                         " border-2 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
                       }
                       onClick={() => {
-                        // changeColor(item)
+                        changeColor(item)
                         playSound()
-                        // DownloadJSON(history, date) - add axios handling here
+                        updateData(history)
                       }}
                     >
-                      {item}
+                      {item + 1}
                     </button>
                   </div>
                 )

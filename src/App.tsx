@@ -27,13 +27,11 @@ function App() {
     tracked: [""],
   } as HistoryStructure)
 
-  const postData = (historyPackage: object) => {
-    console.log(historyPackage, "from post function")
+  const postData = (historyPackage: HistoryStructure) => {
     axios.post(`./api/send`, { historyPackage }).then((res) => {
-      console.log(historyPackage)
-      console.log(res.data, "response data")
-      navigate(`/tic`)
-      // move to next screen on success
+      if (res.data === "success") {
+        navigate(`/tic`)
+      }
     })
   }
 
