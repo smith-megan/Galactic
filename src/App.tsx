@@ -1,18 +1,21 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { format } from "date-fns"
 import soundList from "./assets/sounds/sounds"
 import "./App.css"
 import axios from "axios"
+export interface HistoryStructure {
+  date: string
+  name: string
+  description: string
+  length: number
+  tracked: Array<string>
+  // length: { [index: number]: string }
+  // month: Array<number>
+}
 
 function App() {
-  interface HistoryStructure {
-    date: string
-    name: string
-    description: string
-    length: number
-    // length: { [index: number]: string }
-    // month: Array<number>
-  }
+  let navigate = useNavigate()
 
   const todayDate = format(new Date(), "MMM/dd/yyyy")
 
@@ -21,6 +24,7 @@ function App() {
     name: "Journal",
     description: "5 min or one page of writing by hand",
     length: 0,
+    tracked: [""],
   } as HistoryStructure)
 
   const postData = (historyPackage: object) => {
@@ -28,6 +32,7 @@ function App() {
     axios.post(`./api/send`, { historyPackage }).then((res) => {
       console.log(historyPackage)
       console.log(res.data, "response data")
+      navigate(`/tic`)
       // move to next screen on success
     })
   }
