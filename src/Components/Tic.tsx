@@ -60,7 +60,7 @@ function Tic() {
 
   return (
     <>
-      <div className="grid justify-self-center bg-burgundy rounded-lg p-10 mt-11 w-3/4">
+      <div className="grid justify-self-center bg-pattern bg-cover bg-center rounded-lg p-10 mt-11 w-3/4">
         <div>
           <h1
             className={
@@ -83,7 +83,7 @@ function Tic() {
                       className={
                         "bg-gradient-to-tl " +
                         history.tracked[item] +
-                        " border-2 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
+                        " border-1 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
                       }
                       onClick={() => {
                         changeColor(item)

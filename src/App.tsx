@@ -42,7 +42,7 @@ function App() {
 
   return (
     <>
-      <div className="grid justify-self-center bg-burgundy rounded-lg p-10 mt-11 w-3/4">
+      <div className="grid justify-self-center bg-pattern bg-cover bg-center rounded-lg p-10 mt-11 w-3/4">
         <div>
           <h1
             className={
