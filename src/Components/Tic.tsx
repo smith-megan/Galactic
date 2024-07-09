@@ -67,10 +67,10 @@ function Tic() {
               "grid grid-flow-row font-semibold text-4xl pb-5 text-orange-200 font-header"
             }
           >
-            Tic - {todayDate}
+            Elevate - {todayDate}
           </h1>
           <div>
-            <h1 className="text-orange-200">{history.name} - </h1>
+            <h1 className="text-orange-200 font-header">{history.name} - </h1>
             <p className="text-orange-200 p-5">{history.description}</p>
           </div>
         </div>
@@ -83,7 +83,7 @@ function Tic() {
                       className={
                         "bg-gradient-to-tl " +
                         history.tracked[item] +
-                        " border-1 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
+                        " border-1 border-orange-300 rounded-full p-1 w-16 h-16 text-center font-header text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
                       }
                       onClick={() => {
                         changeColor(item)

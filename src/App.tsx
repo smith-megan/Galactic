@@ -49,7 +49,7 @@ function App() {
               "grid grid-flow-row font-semibold text-4xl pb-5 text-orange-200 font-header"
             }
           >
-            Tic - {todayDate}
+            Elevate - {todayDate}
           </h1>
           <p className="text-orange-200 p-5"></p>
         </div>
