@@ -1,11 +1,17 @@
 import express from "express"
 import ViteExpress from "vite-express"
 import Sequelize from "sequelize"
+import "dotenv/config"
 
-const sequelize = new Sequelize(pgDatabase, pgUser, pgPassword, {
-  host: pgHost,
-  dialect: "postgres",
-})
+const sequelize = new Sequelize(
+  process.env.PGUSER,
+  process.env.PGUSER,
+  process.env.PGPASSWORD,
+  {
+    host: process.env.PGHOST,
+    dialect: "postgres",
+  }
+)
 
 try {
   await sequelize.authenticate()

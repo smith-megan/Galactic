@@ -1,5 +1,4 @@
-db/.env
-db
+/server/.env
 
 # Logs
 logs
