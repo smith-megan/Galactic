@@ -1,25 +1,6 @@
 import express from "express"
 import ViteExpress from "vite-express"
-import Sequelize from "sequelize"
-import "dotenv/config"
-import Habit from "./models/habits"
-
-const sequelize = new Sequelize(
-  process.env.PGUSER,
-  process.env.PGUSER,
-  process.env.PGPASSWORD,
-  {
-    host: process.env.PGHOST,
-    dialect: "postgres",
-  }
-)
-
-try {
-  await sequelize.authenticate()
-  console.log("Connection has been established successfully.")
-} catch (error) {
-  console.error("Unable to connect to the database:", error)
-}
+import { Habit } from "./models/habits.ts"
 
 const habitStart = Habit.create({
   date: "todayDate",
@@ -45,5 +26,3 @@ app.post("/api/send", async (req, res) => {
 app.get("/api/data", (_, res) => res.send(history))
 
 ViteExpress.listen(app, 3000, () => console.log("Server is listening..."))
-
-export default sequelize
