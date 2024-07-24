@@ -2,6 +2,7 @@ import express from "express"
 import ViteExpress from "vite-express"
 import Sequelize from "sequelize"
 import "dotenv/config"
+import Habit from "./models/habits"
 
 const sequelize = new Sequelize(
   process.env.PGUSER,
@@ -20,6 +21,14 @@ try {
   console.error("Unable to connect to the database:", error)
 }
 
+const habitStart = Habit.create({
+  date: "todayDate",
+  name: "Journal",
+  description: "5 min or one page of writing by hand",
+  length: 0,
+  tracked: [""],
+})
+
 // temporary data storage until db set up
 
 let history = { test: 4 }
@@ -36,3 +45,5 @@ app.post("/api/send", async (req, res) => {
 app.get("/api/data", (_, res) => res.send(history))
 
 ViteExpress.listen(app, 3000, () => console.log("Server is listening..."))
+
+export default sequelize
