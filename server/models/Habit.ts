@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize"
-import sequelizeConnection from "../db.ts"
+import sequelizeConnection from "../Config.ts"
 
 interface Habitattributes {
   id: number
@@ -7,14 +7,14 @@ interface Habitattributes {
   date: string
   description: string
   length: number
-  tracked: Array<string>
 }
+// tracked: Array<string>
 
-export interface HabitattributesCreation
-  extends Optional<Habitattributes, "id"> {}
+export interface HabitattributesInput extends Optional<Habitattributes, "id"> {}
+export interface HabitattributesOutput extends Required<Habitattributes> {}
 
 class Habit
-  extends Model<Habitattributes, HabitattributesCreation>
+  extends Model<Habitattributes, HabitattributesInput>
   implements Habitattributes
 {
   public id!: number
@@ -22,20 +22,21 @@ class Habit
   public date!: string
   public description!: string
   public length!: number
-  public tracked!: Array<string>
 
   // timestamps
   public readonly createdAt!: Date
   public readonly updatedAt!: Date
   public readonly deletedAt!: Date
 }
+// public tracked!: Array<string>
 
 Habit.init(
   {
     id: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
     },
 
     name: { type: DataTypes.STRING },
@@ -51,9 +52,6 @@ Habit.init(
     length: {
       type: DataTypes.NUMBER,
     },
-    tracked: {
-      type: DataTypes.ARRAY,
-    },
   },
   {
     timestamps: true,
@@ -61,9 +59,8 @@ Habit.init(
     paranoid: true,
   }
 )
+// tracked: {
+//   type: DataTypes.ARRAY,
+// },
 
-export {
-  Habit,
-  Habitattributes,
-  // HabitattributesCreation
-}
+export default Habit
