@@ -50,7 +50,7 @@ Habit.init(
     },
 
     length: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
     },
   },
   {
@@ -62,5 +62,5 @@ Habit.init(
 // tracked: {
 //   type: DataTypes.ARRAY,
 // },
-
+console.log("Habit has been created successfully")
 export default Habit
