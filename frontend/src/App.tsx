@@ -4,6 +4,7 @@ import { format } from "date-fns"
 import soundList from "./assets/sounds/sounds"
 import "./App.css"
 import axios from "axios"
+import Nav from "./Components/Nav"
 export interface HistoryStructure {
   date: string
   name: string
@@ -42,19 +43,20 @@ function App() {
 
   return (
     <>
-      <div className="grid justify-self-center bg-pattern bg-cover bg-center rounded-lg p-10 mt-11 w-3/4">
+      <Nav />
+      <div className="grid justify-self-center bg-white p-5 mt-6 w-5/6 text-navy-400">
         <div>
           <h1
             className={
-              "grid grid-flow-row font-semibold text-4xl pb-5 text-orange-200 font-header"
+              "grid grid-flow-row font-semibold text-4xl pb-5 font-header"
             }
           >
-            Elevate - {todayDate}
+            {todayDate}
           </h1>
-          <p className="text-orange-200 p-5"></p>
+          <p className="p-5"></p>
         </div>
-        <form className="grid gap-5 text-orange-200">
-          <label>
+        <form className="grid gap-5">
+          <label className="bg-slate-300 p-2">
             Name your Goal:
             <input
               type="text"
@@ -66,7 +68,7 @@ function App() {
               }}
             />
           </label>
-          <label>
+          <label className="bg-slate-500 p-2">
             Specify Success:
             <input
               type="text"
@@ -78,7 +80,7 @@ function App() {
               }}
             />
           </label>
-          <label>
+          <label className="bg-slate-300 p-2">
             Set Length:
             <input
               type="number"

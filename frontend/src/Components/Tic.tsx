@@ -4,6 +4,7 @@ import soundList from "../assets/sounds/sounds"
 import "../App.css"
 import axios from "axios"
 import { HistoryStructure } from "../App"
+import Nav from "../Components/Nav"
 
 function Tic() {
   const [history, setHistory] = useState<HistoryStructure>(
@@ -60,14 +61,15 @@ function Tic() {
 
   return (
     <>
-      <div className="grid justify-self-center bg-pattern bg-cover bg-center rounded-lg p-10 mt-11 w-3/4">
+      <Nav />
+      <div className="grid justify-self-center bg-cover bg-center rounded-lg p-10 mt-11 w-3/4">
         <div>
           <h1
             className={
               "grid grid-flow-row font-semibold text-4xl pb-5 text-orange-200 font-header"
             }
           >
-            Elevate - {todayDate}
+            {todayDate}
           </h1>
           <div>
             <h1 className="text-orange-200 font-header">{history.name} - </h1>
