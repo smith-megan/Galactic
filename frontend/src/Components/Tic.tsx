@@ -26,7 +26,7 @@ function Tic() {
   }
 
   let todayDate = format(new Date(), "MMM/dd/yyyy")
-  let dayCount = getDaysInMonth(todayDate)
+  // let dayCount = getDaysInMonth(todayDate)
 
   let renderButtons = (historyData: HistoryStructure) => {
     const newTrackedArray = []
@@ -62,21 +62,19 @@ function Tic() {
   return (
     <>
       <Nav />
-      <div className="grid justify-self-center bg-cover bg-center rounded-lg p-10 mt-11 w-3/4">
+      <div className="grid justify-self-center bg-cover bg-center rounded-lg p-0 pt-10 pb-10 mt-10 w-full text-white">
         <div>
+          <div className="pb-10">
+            <h1 className="font-header">{history.name}</h1>
+            <p className="p-5">{history.description}</p>
+          </div>
           <h1
-            className={
-              "grid grid-flow-row font-semibold text-4xl pb-5 text-orange-200 font-header"
-            }
+            className={"grid grid-flow-row font-semibold text-xl font-header"}
           >
             {todayDate}
           </h1>
-          <div>
-            <h1 className="text-orange-200 font-header">{history.name} - </h1>
-            <p className="text-orange-200 p-5">{history.description}</p>
-          </div>
         </div>
-        <div className="grid grid-cols-7 gap-7">
+        <div className="grid grid-cols-7 gap-2 p-2">
           {history.tracked
             ? history.tracked.map((index, item: any) => {
                 return (
@@ -85,7 +83,7 @@ function Tic() {
                       className={
                         "bg-gradient-to-tl " +
                         history.tracked[item] +
-                        " border-1 border-orange-300 rounded-full p-1 w-16 h-16 text-center font-header text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
+                        " border-1 border-[#AAC9EF] rounded-full p-1 w-14 h-14 text-center font-header text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
                       }
                       onClick={() => {
                         changeColor(item)

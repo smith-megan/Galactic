@@ -9,7 +9,7 @@ function Nav() {
         <h1 className="font-header p-2 font-semibold text-3xl text-white">
           Elevate
         </h1>
-        <p className="text-xl text-navy-400">One step to improve</p>
+        <p className="text-xl text-navy-400 font-normal">One step to improve</p>
       </div>
     </>
   )

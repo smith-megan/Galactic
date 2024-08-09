@@ -18,10 +18,10 @@ export interface HistoryStructure {
 function App() {
   let navigate = useNavigate()
 
-  const todayDate = format(new Date(), "MMM/dd/yyyy")
+  const startDate = format(new Date(), "MMM/dd/yyyy")
 
   const [history, setHistory] = useState<HistoryStructure>({
-    date: todayDate,
+    date: startDate,
     name: "Journal",
     description: "5 min or one page of writing by hand",
     length: 0,
@@ -44,19 +44,16 @@ function App() {
   return (
     <>
       <Nav />
-      <div className="grid justify-self-center bg-white p-5 mt-6 w-5/6 text-navy-400">
-        <div>
-          <h1
-            className={
-              "grid grid-flow-row font-semibold text-4xl pb-5 font-header"
-            }
-          >
-            {todayDate}
-          </h1>
-          <p className="p-5"></p>
-        </div>
-        <form className="grid gap-5">
-          <label className="bg-slate-300 p-2">
+      <div className="grid justify-self-center bg-white p-5 mt-9 text-navy-400">
+        <h1
+          className={
+            "grid grid-flow-row font-semibold text-4xl pb-5 font-header"
+          }
+        >
+          4 Questions
+        </h1>
+        <form className="grid gap-0">
+          <label className="bg-slate-300 p-4">
             Name your Goal:
             <input
               type="text"
@@ -68,10 +65,9 @@ function App() {
               }}
             />
           </label>
-          <label className="bg-slate-500 p-2">
+          <label className="bg-slate-200 p-4 grid gap-1">
             Specify Success:
-            <input
-              type="text"
+            <textarea
               value={history.description}
               onChange={(e) => {
                 const newHistory = { ...history }
@@ -80,7 +76,7 @@ function App() {
               }}
             />
           </label>
-          <label className="bg-slate-300 p-2">
+          <label className="bg-slate-300 p-4">
             Set Length:
             <input
               type="number"
@@ -94,12 +90,23 @@ function App() {
               }}
             />
           </label>
-          <div>
+          <label className="bg-slate-200 p-4">
+            Set Start Date:
+            <input
+              type="date"
+              onChange={(e) => {
+                const newHistory = { ...history }
+                newHistory.date = e.target.value
+                setHistory(newHistory)
+              }}
+            />
+          </label>
+          <div className="flex justify-center items-center content-center pt-3 pb-3">
             <button
               className={
-                "bg-gradient-to-tl " +
+                "bg-navy-400 bg-gradient-to-tl " +
                 // history[item] +
-                " border-2 border-orange-300 rounded-full p-1 w-16 h-16 text-center text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
+                " border-2 border-[#AAC9EF] rounded-full p-1 w-16 h-16 text-center text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
               }
               onClick={(e) => {
                 e.preventDefault()
@@ -109,7 +116,7 @@ function App() {
                 postData(history)
               }}
             ></button>
-            <h1>Start</h1>
+            <h1 className="font-header p-2">Go</h1>
           </div>
         </form>
       </div>
