@@ -2,17 +2,17 @@ import express from "express"
 import ViteExpress from "vite-express"
 import Habit from "./models/Habit.ts"
 
-async function makeHabit() {
-  const HabitStart = await Habit.create({
-    id: 1,
-    date: "todayDate",
-    name: "Journal",
-    description: "5 min or one page of writing by hand",
-    length: 1,
-  })
-  // tracked: [""],
-}
-makeHabit()
+// async function makeHabit() {
+// const HabitStart = await Habit.create({
+//   id: 1,
+//   date: "todayDate",
+//   name: "Journal",
+//   description: "5 min or one page of writing by hand",
+//   length: 1,
+// })
+// tracked: [""],
+// }
+// makeHabit()
 // temporary data storage until db set up
 
 let history = { test: 4 }
@@ -20,13 +20,40 @@ let history = { test: 4 }
 const app = express()
 app.use(express.json())
 
+// create
+
 app.post("/api/send", async (req, res) => {
   console.log(req.body)
-  history = req.body.historyPackage
+  // history = req.body.historyPackage
+
+  const HabitStart = await Habit.create({
+    ...req.body.historyPackage,
+    // id: 1,
+    // date: "todayDate",
+    // name: "Journal",
+    // description: "5 min or one page of writing by hand",
+    // length: 1,
+  })
+
   res.send("success")
 })
 
-app.get("/api/data", (_, res) => res.send(history))
+// read
+app.get("/api/data", async (_, res) => {
+  const find = await Habit.findByPk(1)
+  res.send(find?.dataValues)
+})
+
+// update
+app.post("./api/data", async (req, res) => {
+  const find = await Habit.findByPk(1)
+  // console.log(find, "habit found")
+  const updatedFind = await (find as Habit).update(req.body.historyPackage)
+
+  res.send("success")
+})
+
+// delete
 
 Habit.sequelize.sync().then(() => {
   ViteExpress.listen(app, 3000, () => console.log("Server is listening..."))
