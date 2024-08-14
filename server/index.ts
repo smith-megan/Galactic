@@ -15,7 +15,7 @@ import Habit from "./models/Habit.ts"
 // makeHabit()
 // temporary data storage until db set up
 
-let history = { test: 4 }
+// let history = { test: 4 }
 
 const app = express()
 app.use(express.json())
@@ -34,13 +34,14 @@ app.post("/api/send", async (req, res) => {
     // description: "5 min or one page of writing by hand",
     // length: 1,
   })
-
-  res.send("success")
+  console.log(HabitStart.dataValues, "This is the habit that was just made")
+  res.status(201).send(HabitStart.dataValues.id.toString())
 })
 
 // read
-app.get("/api/data", async (_, res) => {
-  const find = await Habit.findByPk(1)
+app.get("/api/data/:id", async (req, res) => {
+  console.log(req.params, "these are the parameters")
+  const find = await Habit.findByPk(req.params.id)
   res.send(find?.dataValues)
 })
 

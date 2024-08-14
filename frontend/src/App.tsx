@@ -30,8 +30,9 @@ function App() {
 
   const postData = (historyPackage: HistoryStructure) => {
     axios.post(`./api/send`, { historyPackage }).then((res) => {
-      if (res.data === "success") {
-        navigate(`/tic`)
+      console.log(res.data)
+      if (res.data) {
+        navigate(`/tic/` + `${res.data}`)
       }
     })
   }

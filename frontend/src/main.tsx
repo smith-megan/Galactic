@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/tic",
+    path: "/tic/:id",
     element: <Tic />,
   },
 ])

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
 import { format, getDaysInMonth } from "date-fns"
 import soundList from "../assets/sounds/sounds"
 import "../App.css"
@@ -10,10 +11,12 @@ function Tic() {
   const [history, setHistory] = useState<HistoryStructure>(
     {} as HistoryStructure
   )
+  const { id } = useParams()
 
+  console.log(id, "this is from params")
   const getData = async () => {
-    await axios.get(`./api/data`).then((res) => {
-      console.log(res.data, "response data")
+    await axios.get(`./api/data/${id}`).then((res) => {
+      console.log(res, "response data")
       setHistory(res.data)
       renderButtons(res.data)
     })
