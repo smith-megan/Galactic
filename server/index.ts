@@ -20,6 +20,11 @@ import Habit from "./models/Habit.ts"
 const app = express()
 app.use(express.json())
 
+app.use((req, res, next) => {
+  console.log(req.originalUrl)
+  next()
+})
+
 // create
 
 app.post("/api/send", async (req, res) => {
@@ -40,19 +45,20 @@ app.post("/api/send", async (req, res) => {
 
 // read
 app.get("/api/data/:id", async (req, res) => {
+  console.log("Helloooo?")
   console.log(req.params, "these are the parameters")
   const find = await Habit.findByPk(req.params.id)
-  res.send(find?.dataValues)
+  res.status(200).send(find?.dataValues)
 })
 
 // update
-app.post("./api/data", async (req, res) => {
-  const find = await Habit.findByPk(1)
-  // console.log(find, "habit found")
-  const updatedFind = await (find as Habit).update(req.body.historyPackage)
+// app.post("/api/data", async (req, res) => {
+//   const find = await Habit.findByPk(1)
+//   // console.log(find, "habit found")
+//   const updatedFind = await (find as Habit).update(req.body.historyPackage)
 
-  res.send("success")
-})
+//   res.send("success")
+// })
 
 // delete
 

@@ -14,16 +14,20 @@ function Tic() {
   const { id } = useParams()
 
   console.log(id, "this is from params")
+
   const getData = async () => {
-    await axios.get(`./api/data/${id}`).then((res) => {
+    console.log(`/api/data/`, id, "this should send to here")
+
+    await axios.get(`/api/data/${id}`).then((res) => {
       console.log(res, "response data")
+
       setHistory(res.data)
       renderButtons(res.data)
     })
   }
 
   const updateData = (updatedObj: HistoryStructure) => {
-    axios.post(`./api/send`, { updatedObj }).then((res) => {
+    axios.post(`/api/send`, { updatedObj }).then((res) => {
       console.log(res.data, "response data")
     })
   }

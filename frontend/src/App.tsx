@@ -29,7 +29,7 @@ function App() {
   } as HistoryStructure)
 
   const postData = (historyPackage: HistoryStructure) => {
-    axios.post(`./api/send`, { historyPackage }).then((res) => {
+    axios.post(`/api/send`, { historyPackage }).then((res) => {
       console.log(res.data)
       if (res.data) {
         navigate(`/tic/` + `${res.data}`)
