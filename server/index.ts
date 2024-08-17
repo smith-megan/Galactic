@@ -45,20 +45,23 @@ app.post("/api/send", async (req, res) => {
 
 // read
 app.get("/api/data/:id", async (req, res) => {
-  console.log("Helloooo?")
   console.log(req.params, "these are the parameters")
   const find = await Habit.findByPk(req.params.id)
   res.status(200).send(find?.dataValues)
 })
 
 // update
-// app.post("/api/data", async (req, res) => {
-//   const find = await Habit.findByPk(1)
-//   // console.log(find, "habit found")
-//   const updatedFind = await (find as Habit).update(req.body.historyPackage)
-
-//   res.send("success")
-// })
+app.post("/api/update/:id", async (req, res) => {
+  let find = await Habit.findByPk(req.params.id)
+  console.log(find, "habit found")
+  console.log(req.body)
+  // find = { ...req.body.updatedObj }
+  // find?.save()
+  const updatedFind = await (find as Habit).update(req.body.updatedObj)
+  await updatedFind.save()
+  // console.log(updatedFind)
+  res.send("success")
+})
 
 // delete
 
