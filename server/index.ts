@@ -53,11 +53,15 @@ app.get("/api/data/:id", async (req, res) => {
 // update
 app.post("/api/update/:id", async (req, res) => {
   let find = await Habit.findByPk(req.params.id)
-  console.log(find, "habit found")
-  console.log(req.body)
-  // find = { ...req.body.updatedObj }
+  // console.log(find, "habit found")
+  // console.log(req.body)
+  // find.name = req.body.name
+  // find.date = req.body.date
+  // find.length = req.body.length
   // find?.save()
-  const updatedFind = await (find as Habit).update(req.body.updatedObj)
+  // console.log(find)
+
+  const updatedFind = await (find as Habit).update(req.body)
   await updatedFind.save()
   // console.log(updatedFind)
   res.send("success")
