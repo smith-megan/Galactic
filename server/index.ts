@@ -61,7 +61,8 @@ app.post("/api/update/:id", async (req, res) => {
   // find?.save()
   // console.log(find)
 
-  const updatedFind = await (find as Habit).update(req.body)
+  const updatedFind = await (find as Habit).update(req.body.updatedObj)
+  console.log(req.body)
   await updatedFind.save()
   // console.log(updatedFind)
   res.send("success")

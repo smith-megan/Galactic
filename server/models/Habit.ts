@@ -7,8 +7,8 @@ interface Habitattributes {
   date: string
   description: string
   length: number
+  tracked: Array<string>
 }
-// tracked: Array<string>
 
 export interface HabitattributesInput extends Optional<Habitattributes, "id"> {}
 export interface HabitattributesOutput extends Required<Habitattributes> {}
@@ -22,13 +22,13 @@ class Habit
   public date!: string
   public description!: string
   public length!: number
+  public tracked!: Array<string>
 
   // timestamps
   public readonly createdAt!: Date
   public readonly updatedAt!: Date
   public readonly deletedAt!: Date
 }
-// public tracked!: Array<string>
 
 Habit.init(
   {
@@ -51,6 +51,9 @@ Habit.init(
 
     length: {
       type: DataTypes.INTEGER,
+    },
+    tracked: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
   },
   {
