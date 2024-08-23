@@ -22,7 +22,7 @@ function Tic() {
       // console.log(res, "response data")
 
       setHistory(res.data)
-      renderButtons(res.data)
+      // renderButtons(res.data)
     })
   }
 
@@ -35,24 +35,24 @@ function Tic() {
   let todayDate = format(new Date(), "MMM/dd/yyyy")
   // let dayCount = getDaysInMonth(todayDate)
 
-  let renderButtons = (historyData: HistoryStructure) => {
-    const newTrackedArray = []
-    console.log(historyData.length, "renderbuttons new history")
+  // let renderButtons = (historyData: HistoryStructure) => {
+  //   const newTrackedArray = []
+  //   console.log(historyData.length, "renderbuttons new history")
 
-    for (let i = 1; i < historyData.length + 1; i++) {
-      newTrackedArray.push("from-gray-400 via-60% to-gray-500")
-    }
+  //   for (let i = 1; i < historyData.length + 1; i++) {
+  //     newTrackedArray.push("no")
+  //   }
 
-    historyData.tracked = newTrackedArray
-    setHistory(historyData)
-  }
+  //   historyData.tracked = newTrackedArray
+  //   setHistory(historyData)
+  // }
 
   let changeColor = (item: number) => {
     let newHistory = { ...history }
-    if (newHistory.tracked[item] === "from-gray-400 via-60% to-gray-500") {
-      newHistory.tracked[item] = "from-gray-300 via-40% to-gray-100"
+    if (newHistory.tracked[item] === "no") {
+      newHistory.tracked[item] = "yes"
     } else {
-      newHistory.tracked[item] = "from-gray-400 via-60% to-gray-500"
+      newHistory.tracked[item] = "no"
     }
     setHistory(newHistory)
   }
@@ -87,11 +87,11 @@ function Tic() {
                 return (
                   <div key={"button-" + item + index}>
                     <button
-                      className={
-                        "bg-gradient-to-tl " +
-                        history.tracked[item] +
-                        " border-1 border-[#AAC9EF] rounded-full p-1 w-14 h-14 text-center font-header text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400"
-                      }
+                      className={`bg-gradient-to-tl ${
+                        history.tracked[item] == "no"
+                          ? "from-gray-400 via-60% to-gray-600"
+                          : "from-gray-400 via-60% to-gray-200"
+                      } border-1 border-[#AAC9EF] rounded-full p-1 w-14 h-14 text-center font-header text-gray-700 shadow-inner focus:border-orange-400 active:border-orange-400 hover:border-orange-400`}
                       onClick={() => {
                         changeColor(item)
                         playSound()

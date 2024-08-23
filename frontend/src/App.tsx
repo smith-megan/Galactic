@@ -114,7 +114,13 @@ function App() {
                 // changeColor(item)
                 playSound()
                 console.log(history, "submit history")
-                postData(history)
+                const labelMadeHistory = history
+                const labelArray = []
+                for (let i = 1; i < labelMadeHistory.length + 1; i++) {
+                  labelArray.push("no")
+                }
+                labelMadeHistory.tracked = labelArray
+                postData(labelMadeHistory)
               }}
             ></button>
             <h1 className="font-header p-2">Go</h1>
